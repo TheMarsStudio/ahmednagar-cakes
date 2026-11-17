@@ -52,18 +52,18 @@ html {
   background: var(--color-accent-pink);
 }
 
-/* Hero Section Background (Image 1 Wide Banner) */
+/* Hero Section Background (Original Bakery Backdrop with Flowers & Soft Lighting) */
 .hero-bg-container {
   background-color: var(--color-bg-cream);
-  background-image: url('assets/hero_bg_desktop.jpg');
+  background-image: url('assets/hero_bg_original.jpg');
   background-size: cover;
-  background-position: right center;
+  background-position: center top;
   background-repeat: no-repeat;
+  position: relative;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .hero-bg-container {
-    background-image: url('assets/hero_bg_mobile.jpg');
     background-size: cover;
     background-position: center top;
   }
