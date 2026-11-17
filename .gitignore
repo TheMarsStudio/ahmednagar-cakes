@@ -1,0 +1,23 @@
+# Temporary Screenshots & Crops
+*.png.tmp
+screenshot*.png
+shot*.png
+crop_*.jpg
+desk_*.jpg
+mob_*.jpg
+cake_*.jpg
+diff*.jpg
+tag_*.jpg
+test_*.jpg
+user_feedback_*.jpg
+rendered_*.png
+rendered_*.jpg
+banner_cake_area.jpg
+treats_crop.jpg
+wave_crop.jpg
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

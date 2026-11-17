@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmednagar Cakes | Custom Cakes, Cookies & More</title>
+  <meta name="description" content="Ahmednagar Cakes - Your one-stop shop for custom cakes, fresh bakes, cookie tins, classic tiramisu, and sweet celebrations. Handcrafted with love in Ahmednagar.">
+  <link rel="icon" type="image/png" href="assets/logo_clean.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bakery-dark': '#382017',
+            'bakery-darker': '#28140E',
+            'bakery-pink': '#C83B65',
+            'bakery-pink-hover': '#B22D55',
+            'bakery-cream': '#FAF4EC',
+            'bakery-cream-light': '#FDF9F5',
+            'bakery-muted': '#786055',
+            'bakery-border': '#F0E4D6'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#FAF4EC] text-[#382017] antialiased selection:bg-[#C83B65] selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed top-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- ======================== NAVIGATION HEADER ======================== -->
+  <header class="sticky top-0 z-40 bg-[#FAF4EC]/95 backdrop-blur-md border-b border-[#F0E5D8]/80 transition-all duration-300">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo Badge -->
+      <a href="#home" class="flex items-center gap-3 group">
+        <img 
+          src="assets/logo_clean.png" 
+          alt="Ahmednagar Cakes Logo" 
+          class="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-full shadow-sm group-hover:scale-105 transition-transform duration-300"
+        />
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#home" class="bg-[#382017] text-white px-5 py-2 rounded-full font-medium text-sm transition-all shadow-sm">
+          Home
+        </a>
+        <a href="#menu" class="text-[#382017] hover:bg-[#F0E4D6] px-4 py-2 rounded-full text-sm font-medium transition">
+          Menu
+        </a>
+        <a href="#about" class="text-[#382017] hover:bg-[#F0E4D6] px-4 py-2 rounded-full text-sm font-medium transition">
+          About
+        </a>
+        <a href="#gallery" class="text-[#382017] hover:bg-[#F0E4D6] px-4 py-2 rounded-full text-sm font-medium transition">
+          Gallery
+        </a>
+        <a href="#contact" class="text-[#382017] hover:bg-[#F0E4D6] px-4 py-2 rounded-full text-sm font-medium transition">
+          Contact
+        </a>
+      </nav>
+
+      <!-- Right Action Controls (Cart & Order Now) -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        
+        <!-- Cart Button with Counter Badge -->
+        <button 
+          id="cartBtn" 
+          class="relative p-2 text-[#382017] hover:text-[#C83B65] hover:bg-[#F0E4D6]/70 rounded-full transition"
+          title="Shopping Cart"
+          aria-label="View Cart"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span 
+            class="cart-count-badge absolute -top-1 -right-1 bg-[#C83B65] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-[#FAF4EC] shadow-sm"
+          >
+            0
+          </span>
+        </button>
+
+        <!-- "Order Now" Button (WhatsApp Direct) -->
+        <a 
+          href="https://wa.me/918237576793?text=Hi%20Ahmednagar%20Cakes!%20%F0%9F%8E%82%20I%20would%20like%20to%20place%20an%20order." 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="bg-[#C83B65] hover:bg-[#B22D55] text-white px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm transition-transform duration-200 active:scale-95"
+        >
+          <!-- WhatsApp Icon -->
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.062-1.859-.444-1.417-.585-2.316-2.023-2.387-2.118-.071-.095-.572-.76-.572-1.448 0-.688.358-1.026.486-1.168.127-.142.279-.177.372-.177.094 0 .188.001.27.006.088.005.204-.033.319.243.119.286.406.989.442 1.061.036.072.06.155.012.25-.048.096-.072.155-.144.238-.071.084-.15.187-.215.251-.072.072-.148.15-.064.294.084.144.373.616.801.998.552.492 1.016.644 1.16.715.143.072.227.06.311-.036.084-.096.358-.417.454-.56.096-.143.191-.12.323-.071.131.048.835.394.978.466.144.071.239.107.275.167.036.06.036.346-.108.751zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.66 1.436 5.176L2 22l4.981-1.396A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+          </svg>
+          <span>Order Now</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button 
+          id="mobileMenuBtn" 
+          class="md:hidden p-2 text-[#382017] hover:bg-[#F0E4D6] rounded-lg transition"
+          aria-label="Open Navigation Menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobileMenu" class="fixed inset-0 z-50 bg-[#382017]/50 backdrop-blur-sm hidden flex justify-end">
+    <div class="w-72 bg-[#FAF4EC] h-full shadow-2xl p-6 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-[#EEDBCC]">
+          <div class="flex items-center gap-2">
+            <img src="assets/logo_clean.png" alt="Logo" class="w-10 h-10 rounded-full" />
+            <span class="font-serif-display font-bold text-lg text-[#382017]">Ahmednagar Cakes</span>
+          </div>
+          <button id="closeMobileMenu" class="p-1.5 text-[#382017] hover:bg-[#F0E4D6] rounded-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-2 mt-6">
+          <a href="#home" class="px-4 py-2.5 rounded-xl font-medium text-[#382017] bg-[#F0E4D6]">Home</a>
+          <a href="#menu" class="px-4 py-2.5 rounded-xl font-medium text-[#382017] hover:bg-[#F0E4D6]">Menu</a>
+          <a href="#about" class="px-4 py-2.5 rounded-xl font-medium text-[#382017] hover:bg-[#F0E4D6]">About Us</a>
+          <a href="#gallery" class="px-4 py-2.5 rounded-xl font-medium text-[#382017] hover:bg-[#F0E4D6]">Gallery &amp; Reviews</a>
+          <a href="#contact" class="px-4 py-2.5 rounded-xl font-medium text-[#382017] hover:bg-[#F0E4D6]">Contact</a>
+        </nav>
+      </div>
+
+      <div class="pt-6 border-t border-[#EEDBCC]">
+        <button 
+          class="btn-open-custom-cake w-full bg-[#382017] text-white py-3 rounded-full font-medium text-sm mb-3 flex items-center justify-center gap-2"
+        >
+          <span>🎂 Custom Cake Order</span>
+        </button>
+        <a 
+          href="https://wa.me/918237576793" 
+          target="_blank" 
+          class="w-full bg-[#C83B65] text-white py-3 rounded-full font-semibold text-sm flex items-center justify-center gap-2"
+        >
+          <span>WhatsApp Chat</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- ======================== HERO SECTION ======================== -->
+    <section id="home" class="relative pt-6 sm:pt-10 pb-14 sm:pb-16 overflow-hidden hero-bg-container">
+      
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center min-h-[380px] sm:min-h-[440px]">
+          
+          <!-- Left Hero Content -->
+          <div class="md:col-span-6 lg:col-span-6 space-y-4 text-center md:text-left">
+            
+            <!-- Eyebrow: — AHMEDNAGAR CAKES — -->
+            <div class="inline-flex items-center justify-center md:justify-start gap-3">
+              <span class="w-8 h-px bg-[#786055]/50"></span>
+              <span class="text-xs font-semibold tracking-[0.22em] text-[#786055] uppercase">
+                Ahmednagar Cakes
+              </span>
+              <span class="w-8 h-px bg-[#786055]/50"></span>
+            </div>
+
+            <!-- Headline: Cakes, Cookies & More ♡ -->
+            <h1 class="font-serif-display text-4xl sm:text-5xl lg:text-[54px] font-bold text-[#382017] leading-[1.12] tracking-tight">
+              Cakes, Cookies<br>
+              <span class="inline-flex items-center gap-2">
+                &amp; More 
+                <span class="text-[#C83B65] font-light text-4xl sm:text-5xl select-none">♡</span>
+              </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-[#786055] text-xs sm:text-sm font-medium tracking-wide">
+              Custom Cakes &bull; Freshly Baked &bull; Irresistible Treats
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+              
+              <!-- Dark Chocolate Explore Menu Button -->
+              <a 
+                href="#treatsSection" 
+                class="bg-[#382017] hover:bg-[#28140E] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium text-xs sm:text-sm flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+              >
+                <!-- Cake Slice SVG Icon -->
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 15.5V19a2 2 0 01-2 2H5a2 2 0 01-2-2v-3.5M3 15.5l9-9 9 9M3 15.5h18" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.5V3" />
+                </svg>
+                <span>Explore Menu &rarr;</span>
+              </a>
+
+              <!-- Outlined Pink WhatsApp Order Button -->
+              <a 
+                href="https://wa.me/918237576793?text=Hi%20Ahmednagar%20Cakes!%20%F0%9F%8E%82%20I%20would%20like%20to%20order." 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="border border-[#C83B65] text-[#C83B65] hover:bg-[#C83B65] hover:text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all duration-200 shadow-sm bg-white/70 backdrop-blur-sm"
+              >
+                <!-- WhatsApp SVG Icon -->
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.062-1.859-.444-1.417-.585-2.316-2.023-2.387-2.118-.071-.095-.572-.76-.572-1.448 0-.688.358-1.026.486-1.168.127-.142.279-.177.372-.177.094 0 .188.001.27.006.088.005.204-.033.319.243.119.286.406.989.442 1.061.036.072.06.155.012.25-.048.096-.072.155-.144.238-.071.084-.15.187-.215.251-.072.072-.148.15-.064.294.084.144.373.616.801.998.552.492 1.016.644 1.16.715.143.072.227.06.311-.036.084-.096.358-.417.454-.56.096-.143.191-.12.323-.071.131.048.835.394.978.466.144.071.239.107.275.167.036.06.036.346-.108.751zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.66 1.436 5.176L2 22l4.981-1.396A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+                </svg>
+                <span>Order Now</span>
+              </a>
+
+            </div>
+
+            <!-- Whimsical Pink Squiggle Doodle under buttons -->
+            <div class="flex justify-center md:justify-start pt-1">
+              <svg class="w-28 h-5 text-[#C83B65]/70" viewBox="0 0 120 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M5 12 Q 22 2, 40 12 T 75 12 T 115 12" />
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- Right Hero Space: The Cake is visible in the background image! -->
+          <div class="md:col-span-6 lg:col-span-6 flex flex-col items-center justify-end h-full min-h-[220px] sm:min-h-[340px] pointer-events-none">
+            <!-- Two Dots Carousel Indicator below the background cake -->
+            <div class="flex items-center gap-2 mt-auto mb-2 pointer-events-auto">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#382017]"></span>
+              <span class="w-2 h-2 rounded-full bg-[#D6C4B8]"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== CATEGORY PILLS BAR ======================== -->
+    <section id="menu" class="relative -mt-4 pb-10 z-20">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <div class="bg-white rounded-2xl sm:rounded-full py-2.5 px-3 sm:px-4 shadow-md border border-[#F0E4D6] flex flex-wrap sm:flex-nowrap items-center justify-between gap-1 sm:gap-2">
+          
+          <!-- Category 1: Cakes -->
+          <button 
+            type="button"
+            class="category-pill active flex-1 min-w-[80px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-full hover:bg-[#FAF2EB] transition text-xs sm:text-sm font-semibold text-[#382017]"
+            data-category="cakes"
+          >
+            <!-- Cake Slice Outline Icon -->
+            <svg class="category-icon w-4 h-4 text-[#C83B65]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 19H5a2 2 0 01-2-2V9.5l9-5 9 5V17a2 2 0 01-2 2zM3 13.5h18" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5V2" />
+            </svg>
+            <span>Cakes</span>
+          </button>
+
+          <!-- Category 2: Donuts -->
+          <button 
+            type="button"
+            class="category-pill flex-1 min-w-[80px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-full hover:bg-[#FAF2EB] transition text-xs sm:text-sm font-semibold text-[#382017]"
+            data-category="donuts"
+          >
+            <!-- Donut Icon -->
+            <svg class="category-icon w-4 h-4 text-[#C83B65]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <circle cx="12" cy="12" r="3.5" />
+              <path stroke-linecap="round" d="M15 7.5c1 .5 1.5 1.5 2 3" />
+            </svg>
+            <span>Donuts</span>
+          </button>
+
+          <!-- Category 3: Cookies -->
+          <button 
+            type="button"
+            class="category-pill flex-1 min-w-[80px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-full hover:bg-[#FAF2EB] transition text-xs sm:text-sm font-semibold text-[#382017]"
+            data-category="cookies"
+          >
+            <!-- Cookie with Chips Icon -->
+            <svg class="category-icon w-4 h-4 text-[#C83B65]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+              <circle cx="9" cy="9" r="1" fill="#C83B65" />
+              <circle cx="15" cy="9" r="1" fill="#C83B65" />
+              <circle cx="13" cy="15" r="1" fill="#C83B65" />
+            </svg>
+            <span>Cookies</span>
+          </button>
+
+          <!-- Category 4: Cupcakes -->
+          <button 
+            type="button"
+            class="category-pill flex-1 min-w-[80px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-full hover:bg-[#FAF2EB] transition text-xs sm:text-sm font-semibold text-[#382017]"
+            data-category="cupcakes"
+          >
+            <!-- Cupcake Icon -->
+            <svg class="category-icon w-4 h-4 text-[#C83B65]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 11h14v1a4 4 0 01-4 4H9a4 4 0 01-4-4v-1z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l1.5 5h7L17 16" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 11a5 5 0 0110 0" />
+            </svg>
+            <span>Cupcakes</span>
+          </button>
+
+          <!-- Category 5: Brownies -->
+          <button 
+            type="button"
+            class="category-pill flex-1 min-w-[80px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-full hover:bg-[#FAF2EB] transition text-xs sm:text-sm font-semibold text-[#382017]"
+            data-category="brownies"
+          >
+            <!-- Brownie Cubes Stack Icon -->
+            <svg class="category-icon w-4 h-4 text-[#C83B65]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <rect x="3" y="12" width="18" height="8" rx="2" />
+              <rect x="6" y="4" width="12" height="8" rx="2" />
+            </svg>
+            <span>Brownies</span>
+          </button>
+
+          <!-- Category 6: Gift Boxes -->
+          <button 
+            type="button"
+            class="category-pill flex-1 min-w-[80px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-full hover:bg-[#FAF2EB] transition text-xs sm:text-sm font-semibold text-[#382017]"
+            data-category="gift-boxes"
+          >
+            <!-- Gift Box Icon -->
+            <svg class="category-icon w-4 h-4 text-[#C83B65]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 12v8a1 1 0 01-1 1H5a1 1 0 01-1-1v-8m16 0H4m16 0a2 2 0 002-2V8a2 2 0 00-2-2H4a2 2 0 00-2 2v2a2 2 0 002 2m8-6v15M12 6a3 3 0 10-3-3 3 3 0 003 3zm0 0a3 3 0 113-3 3 3 0 01-3 3z" />
+            </svg>
+            <span>Gift Boxes</span>
+          </button>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== "OUR SPECIAL TREATS" SECTION ======================== -->
+    <section id="treatsSection" class="py-10 relative overflow-hidden">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        <!-- Section Header with Radiating Spark Lines: \ | / Our Special Treats / | \ -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center gap-3 mb-1">
+            <!-- Left 3 Radiating Rays -->
+            <svg class="w-5 h-5 text-[#C83B65]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <line x1="3" y1="12" x2="9" y2="12" />
+              <line x1="5" y1="6" x2="10" y2="9" />
+              <line x1="5" y1="18" x2="10" y2="15" />
+            </svg>
+
+            <h2 class="font-serif-display text-2xl sm:text-3xl lg:text-[34px] font-semibold text-[#382017] tracking-tight">
+              Our Special Treats
+            </h2>
+
+            <!-- Right 3 Radiating Rays -->
+            <svg class="w-5 h-5 text-[#C83B65]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <line x1="21" y1="12" x2="15" y2="12" />
+              <line x1="19" y1="6" x2="14" y2="9" />
+              <line x1="19" y1="18" x2="14" y2="15" />
+            </svg>
+          </div>
+
+          <p class="text-[#786055] text-xs sm:text-sm font-normal">
+            Handcrafted delights, baked with love.
+          </p>
+        </div>
+
+        <!-- Carousel Wrapper with Left & Right Arrow Buttons -->
+        <div class="relative flex items-center">
+          
+          <!-- Previous Button (< in pink circle) -->
+          <button 
+            id="carouselPrev" 
+            class="hidden md:flex absolute -left-4 z-20 w-10 h-10 rounded-full bg-white border border-[#C83B65] text-[#C83B65] hover:bg-[#C83B65] hover:text-white items-center justify-center shadow-md transition-all duration-200 transform hover:scale-105"
+            title="Previous treats"
+            aria-label="Previous Treats"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <!-- Cards Scroll / Grid Track -->
+          <div 
+            id="treatsCarousel" 
+            class="carousel-track w-full overflow-x-auto scroll-smooth py-2 px-1 flex gap-5 no-scrollbar items-stretch"
+          >
+            <!-- Dynamically populated from PRODUCTS in app.js -->
+            <!-- Features: Cookie Tins (₹399), Classic Tiramisu (₹699), Tiramisu Truffles (₹349) -->
+          </div>
+
+          <!-- Next Button (> in pink circle) -->
+          <button 
+            id="carouselNext" 
+            class="hidden md:flex absolute -right-4 z-20 w-10 h-10 rounded-full bg-white border border-[#C83B65] text-[#C83B65] hover:bg-[#C83B65] hover:text-white items-center justify-center shadow-md transition-all duration-200 transform hover:scale-105"
+            title="Next treats"
+            aria-label="Next Treats"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+        </div>
+
+        <!-- Pagination Indicator Dots: 3 dots -->
+        <div class="flex items-center justify-center gap-2 mt-6">
+          <span class="carousel-dot w-2 h-2 rounded-full bg-[#D6C4B8]"></span>
+          <span class="carousel-dot w-2.5 h-2.5 rounded-full bg-[#382017]"></span>
+          <span class="carousel-dot w-2 h-2 rounded-full bg-[#D6C4B8]"></span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================== "ABOUT US" SECTION ======================== -->
+    <section id="about" class="py-14 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Column: Organic Pebble Framed Photo of Tiramisu Truffles with Mint Leaf -->
+          <div class="md:col-span-4 flex justify-center">
+            <div class="relative w-64 sm:w-72 aspect-square">
+              <!-- Glow backdrop -->
+              <div class="absolute inset-0 bg-[#EED8C5]/50 rounded-full blur-xl transform scale-95"></div>
+              
+              <!-- Organic Pebble Wavy Shape Photo Container -->
+              <div class="organic-shape-frame w-full h-full relative z-10 bg-[#382017]">
+                <img 
+                  src="assets/card_truf.jpg" 
+                  alt="Tiramisu Truffles with fresh mint sprig" 
+                  class="w-full h-full object-cover object-center"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Column: Story Copy & Know More Button -->
+          <div class="md:col-span-5 space-y-4 text-center md:text-left">
+            <div>
+              <!-- About Us Eyebrow in Pink Script -->
+              <div class="inline-flex items-center gap-2 mb-1">
+                <span class="w-5 h-0.5 bg-[#C83B65]"></span>
+                <span class="text-xs font-bold text-[#C83B65] tracking-wide font-serif-display italic text-base">About Us</span>
+                <span class="w-5 h-0.5 bg-[#C83B65]"></span>
+              </div>
+
+              <!-- Main Title -->
+              <h2 class="font-serif-display text-2xl sm:text-3xl font-bold text-[#382017] leading-tight">
+                Ahmednagar Cakes
+              </h2>
+            </div>
+
+            <!-- Paragraph -->
+            <p class="text-[#786055] text-xs sm:text-sm leading-relaxed">
+              Your one-stop cake shop for custom cakes, fresh bakes, and sweet celebrations. We bake with love to make your special moments even sweeter.
+            </p>
+
+            <!-- "Know More →" Button -->
+            <div class="pt-1">
+              <button 
+                type="button"
+                class="btn-open-custom-cake bg-[#382017] hover:bg-[#28140E] text-white px-6 py-2.5 rounded-full font-medium text-xs sm:text-sm inline-flex items-center gap-2 shadow-sm transition-transform active:scale-95"
+              >
+                <!-- Chat / Message Icon -->
+                <svg class="w-4 h-4 fill-none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                <span>Know More &rarr;</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: 4 Feature Highlights with Vertical Divider & Pink Ring Icons -->
+          <div class="md:col-span-3 space-y-4 md:border-l md:border-[#F0E4D6] md:pl-6">
+            
+            <!-- Feature 1: Custom Cake Designs -->
+            <div class="flex items-center gap-3">
+              <div class="feature-icon-ring w-9 h-9">
+                <!-- Cake Icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 15.5V19a2 2 0 01-2 2H5a2 2 0 01-2-2v-3.5M3 15.5l9-9 9 9M3 15.5h18" />
+                </svg>
+              </div>
+              <span class="text-xs font-semibold text-[#382017]">Custom Cake Designs</span>
+            </div>
+
+            <!-- Feature 2: Premium Ingredients -->
+            <div class="flex items-center gap-3">
+              <div class="feature-icon-ring w-9 h-9">
+                <!-- Leaf / Sprout Icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <span class="text-xs font-semibold text-[#382017]">Premium Ingredients</span>
+            </div>
+
+            <!-- Feature 3: Delivery All Over -->
+            <div class="flex items-center gap-3">
+              <div class="feature-icon-ring w-9 h-9">
+                <!-- Delivery Van Icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8h4.586a1 1 0 01.707.293l2.414 2.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h2" />
+                </svg>
+              </div>
+              <span class="text-xs font-semibold text-[#382017]">Delivery All Over</span>
+            </div>
+
+            <!-- Feature 4: Made with Love -->
+            <div class="flex items-center gap-3">
+              <div class="feature-icon-ring w-9 h-9">
+                <!-- Heart Icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <span class="text-xs font-semibold text-[#382017]">Made with Love</span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== BOTTOM CELEBRATION CTA BANNER ======================== -->
+    <section class="relative bg-[#382017] text-white pt-10 pb-12 overflow-hidden">
+      
+      <!-- Top Organic Wave Curve Divider -->
+      <div class="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none -translate-y-[95%] pointer-events-none">
+        <svg viewBox="0 0 1200 100" preserveAspectRatio="none" class="relative block w-full h-10 text-[#382017] fill-current">
+          <path d="M0,0 C200,60 400,-20 600,40 C800,90 1000,10 1200,45 L1200,100 L0,100 Z"></path>
+        </svg>
+      </div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          
+          <!-- Left Bakery Doodle: Cupcake with Heart -->
+          <div class="hidden sm:block flex-shrink-0 opacity-80 hover:opacity-100 transition doodle-container">
+            <svg class="w-14 h-14 text-[#F0E4D6]" viewBox="0 0 64 64">
+              <path class="doodle-path" d="M14 34 L18 54 Q 32 58 46 54 L50 34 Z" />
+              <path class="doodle-path" d="M22 36 L24 53" />
+              <path class="doodle-path" d="M32 36 L32 55" />
+              <path class="doodle-path" d="M42 36 L40 53" />
+              <path class="doodle-path" d="M12 34 Q 18 24 32 24 Q 46 24 52 34 Z" />
+              <circle cx="32" cy="14" r="3.5" stroke="currentColor" stroke-width="1.5" fill="#C83B65" />
+            </svg>
+          </div>
+
+          <!-- Middle Text: Have a Celebration Coming Up? -->
+          <div class="text-center md:text-left space-y-1">
+            <h2 class="font-serif-display text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">
+              Have a Celebration Coming Up?
+            </h2>
+            <p class="text-[#E8D6CB] text-xs sm:text-sm font-normal">
+              Order your custom cake today!
+            </p>
+          </div>
+
+          <!-- Right Action: Pink Pill Button + Right Bakery Doodles -->
+          <div class="flex items-center gap-5">
+            
+            <!-- WhatsApp Order Button -->
+            <a 
+              href="https://wa.me/918237576793?text=Hi%20Ahmednagar%20Cakes!%20%F0%9F%8E%82%20I%20have%20an%20upcoming%20celebration%20and%20would%20like%20to%20order%20a%20custom%20cake." 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="bg-[#C83B65] hover:bg-[#B22D55] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
+            >
+              <!-- WhatsApp Icon -->
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.062-1.859-.444-1.417-.585-2.316-2.023-2.387-2.118-.071-.095-.572-.76-.572-1.448 0-.688.358-1.026.486-1.168.127-.142.279-.177.372-.177.094 0 .188.001.27.006.088.005.204-.033.319.243.119.286.406.989.442 1.061.036.072.06.155.012.25-.048.096-.072.155-.144.238-.071.084-.15.187-.215.251-.072.072-.148.15-.064.294.084.144.373.616.801.998.552.492 1.016.644 1.16.715.143.072.227.06.311-.036.084-.096.358-.417.454-.56.096-.143.191-.12.323-.071.131.048.835.394.978.466.144.071.239.107.275.167.036.06.036.346-.108.751zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.66 1.436 5.176L2 22l4.981-1.396A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+              </svg>
+              <span>Order on WhatsApp</span>
+            </a>
+
+            <!-- Right Bakery Doodles: Layered Cake & Donut -->
+            <div class="hidden sm:flex items-center gap-2 opacity-80 hover:opacity-100 transition doodle-container">
+              <!-- Tiered Cake -->
+              <svg class="w-12 h-12 text-[#F0E4D6]" viewBox="0 0 64 64">
+                <rect class="doodle-path" x="12" y="36" width="40" height="18" rx="2" />
+                <rect class="doodle-path" x="18" y="22" width="28" height="14" rx="2" />
+                <line class="doodle-path" x1="25" y1="22" x2="25" y2="14" />
+                <line class="doodle-path" x1="32" y1="22" x2="32" y2="12" />
+                <line class="doodle-path" x1="39" y1="22" x2="39" y2="14" />
+                <circle cx="25" cy="11" r="1.5" fill="#FFE28A" />
+                <circle cx="32" cy="9" r="1.5" fill="#FFE28A" />
+                <circle cx="39" cy="11" r="1.5" fill="#FFE28A" />
+              </svg>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer id="contact" class="bg-[#28140E] text-[#B8A398] py-10 border-t border-[#3F261C]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Brand & Bio -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <img src="assets/logo_clean.png" alt="Logo" class="w-11 h-11 rounded-full" />
+            <div>
+              <span class="font-serif-display text-lg font-bold text-white block">Ahmednagar Cakes</span>
+              <span class="text-xs text-[#C83B65]">Custom Cake Designer &bull; Bakery</span>
+            </div>
+          </div>
+          <p class="text-xs text-[#A89184]">
+            Handcrafted with love in Ahmednagar. Dubai Kunafa, Tiramisu, Cookies, Donuts, Cheesecakes &amp; Custom Celebration Cakes.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="space-y-2">
+          <h4 class="font-bold text-xs text-white uppercase tracking-wider">Quick Links</h4>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="#home" class="hover:text-white transition">Home</a></li>
+            <li><a href="#menu" class="hover:text-white transition">Menu &amp; Categories</a></li>
+            <li><a href="#treatsSection" class="hover:text-white transition">Special Treats</a></li>
+            <li><a href="#about" class="hover:text-white transition">About Our Story</a></li>
+            <li><button class="btn-open-custom-cake hover:text-white transition text-left">Custom Cake Inquiry</button></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Ordering Info -->
+        <div class="space-y-2">
+          <h4 class="font-bold text-xs text-white uppercase tracking-wider">Contact &amp; Delivery</h4>
+          <div class="space-y-1.5 text-xs">
+            <p class="flex items-center gap-2">
+              <span class="text-[#C83B65]">📞</span>
+              <a href="tel:+918237576793" class="text-white hover:text-[#C83B65] font-semibold">+91 82375 76793</a>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-[#C83B65]">🕒</span>
+              <span>Home Delivery: 6:30 PM &ndash; 8:30 PM</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-[#C83B65]">🛵</span>
+              <span>Delivery All Over Ahmednagar &bull; Zomato</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-[#C83B65]">📷</span>
+              <a href="https://instagram.com/ahmednagarcakes" target="_blank" class="hover:text-white transition">@ahmednagarcakes</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-8 pt-4 border-t border-[#3F261C] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#8A7367]">
+        <p>&copy; 2026 Ahmednagar Cakes. All rights reserved. Handcrafted with love ♡</p>
+        <p>Baking happiness one slice at a time.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================== CART DRAWER MODAL ======================== -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div id="cartBackdrop" class="absolute inset-0 drawer-backdrop"></div>
+    
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between z-10">
+      
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-[#F0E5D8] flex items-center justify-between bg-[#FAF4EC]">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#C83B65]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <h3 class="font-bold text-[#382017] text-lg font-serif-display">Your Sweet Cart</h3>
+          <span class="cart-count-badge bg-[#C83B65] text-white text-xs font-bold px-2 py-0.5 rounded-full ml-1">0</span>
+        </div>
+        <button id="closeCartBtn" class="p-2 text-[#786055] hover:text-[#382017] hover:bg-[#F0E4D6] rounded-full transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Items List -->
+      <div class="p-5 overflow-y-auto flex-grow flex flex-col justify-start">
+        
+        <!-- Empty Cart State -->
+        <div id="cartEmptyState" class="text-center py-14 space-y-3">
+          <div class="w-16 h-16 rounded-full bg-[#FAF4EC] text-3xl flex items-center justify-center mx-auto text-[#C83B65] animate-float">
+            🧁
+          </div>
+          <h4 class="font-bold text-[#382017] text-base">Your cart is sweet and empty!</h4>
+          <p class="text-xs text-[#786055] max-w-xs mx-auto">
+            Choose from our artisanal Tiramisu, Cookie Tins, or Truffles and treat yourself.
+          </p>
+          <button 
+            onclick="closeCart()"
+            class="bg-[#382017] text-white px-5 py-2 rounded-full text-xs font-semibold hover:bg-[#28140E] transition"
+          >
+            Start Browsing
+          </button>
+        </div>
+
+        <!-- Populated Cart Items -->
+        <div id="cartItemsContainer" class="space-y-1"></div>
+
+      </div>
+
+      <!-- Cart Drawer Footer -->
+      <div class="p-5 border-t border-[#F0E5D8] bg-[#FAF4EC] space-y-3">
+        
+        <!-- Customer Details for WhatsApp Order -->
+        <div class="space-y-2">
+          <input 
+            type="text" 
+            id="customerNameInput" 
+            placeholder="Your Name (e.g. Priya Sharma)" 
+            class="w-full px-3.5 py-2 rounded-xl text-xs border border-[#DFCEBD] bg-white text-[#382017] focus:outline-none focus:border-[#C83B65]"
+          />
+          <input 
+            type="text" 
+            id="customerAddressInput" 
+            placeholder="Delivery Address / Area (Ahmednagar)" 
+            class="w-full px-3.5 py-2 rounded-xl text-xs border border-[#DFCEBD] bg-white text-[#382017] focus:outline-none focus:border-[#C83B65]"
+          />
+        </div>
+
+        <!-- Subtotal / Total -->
+        <div class="space-y-1.5 text-xs text-[#786055]">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="cartSubtotal" class="font-semibold text-[#382017]">₹0</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Ahmednagar Delivery</span>
+            <span class="text-emerald-700 font-semibold">FREE (Special Promo)</span>
+          </div>
+          <div class="flex justify-between text-base font-bold text-[#382017] pt-2 border-t border-[#EADBCC]">
+            <span>Total Payable</span>
+            <span id="cartTotal" class="text-lg text-[#C83B65]">₹0</span>
+          </div>
+        </div>
+
+        <!-- Checkout on WhatsApp Button -->
+        <button 
+          id="whatsappCheckoutBtn" 
+          class="w-full bg-[#25D366] hover:bg-[#1EBE5D] text-white py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition duration-200 active:scale-95"
+        >
+          <!-- WhatsApp Icon -->
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.062-1.859-.444-1.417-.585-2.316-2.023-2.387-2.118-.071-.095-.572-.76-.572-1.448 0-.688.358-1.026.486-1.168.127-.142.279-.177.372-.177.094 0 .188.001.27.006.088.005.204-.033.319.243.119.286.406.989.442 1.061.036.072.06.155.012.25-.048.096-.072.155-.144.238-.071.084-.15.187-.215.251-.072.072-.148.15-.064.294.084.144.373.616.801.998.552.492 1.016.644 1.16.715.143.072.227.06.311-.036.084-.096.358-.417.454-.56.096-.143.191-.12.323-.071.131.048.835.394.978.466.144.071.239.107.275.167.036.06.036.346-.108.751zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.66 1.436 5.176L2 22l4.981-1.396A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+          </svg>
+          <span>Confirm &amp; Order on WhatsApp</span>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================== QUICK VIEW PRODUCT MODAL ======================== -->
+  <div id="quickViewModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div id="quickViewBackdrop" class="absolute inset-0 bg-[#382017]/60 backdrop-blur-sm"></div>
+    
+    <div class="relative bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl z-10 border border-[#F0E4D6] max-h-[90vh] overflow-y-auto">
+      <button id="closeQuickViewBtn" class="absolute top-4 right-4 p-2 text-[#786055] hover:text-[#382017] hover:bg-[#FAF4EC] rounded-full transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-center">
+        <div class="rounded-2xl overflow-hidden bg-[#FAF4EC] border border-[#F0E4D6] aspect-square">
+          <img id="quickViewImg" src="" alt="Product" class="w-full h-full object-cover" />
+        </div>
+
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <span id="quickViewRating" class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">★ 5.0</span>
+            <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 font-semibold">100% Eggless 🌱</span>
+          </div>
+
+          <h3 id="quickViewName" class="font-serif-display text-2xl font-bold text-[#382017]"></h3>
+
+          <div class="flex items-baseline gap-2">
+            <span id="quickViewPrice" class="text-2xl font-bold text-[#382017]"></span>
+            <span id="quickViewOrigPrice" class="text-xs text-[#9B8479] line-through"></span>
+          </div>
+
+          <p id="quickViewDesc" class="text-xs text-[#786055] leading-relaxed"></p>
+
+          <div>
+            <label class="block text-[11px] font-bold text-[#382017] uppercase tracking-wider mb-1">Portion Size</label>
+            <div id="quickViewWeights" class="flex flex-wrap gap-1.5"></div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-[#786055] mb-1">Message on Cake (Optional)</label>
+            <input 
+              type="text" 
+              id="quickViewNote" 
+              placeholder="e.g. Happy Birthday Priya ♡" 
+              class="w-full text-xs px-3 py-2 rounded-xl border border-[#DFCEBD] focus:outline-none focus:border-[#C83B65]" 
+            />
+          </div>
+
+          <div class="flex items-center gap-2.5 pt-2">
+            <div class="flex items-center border border-[#DFCEBD] rounded-xl bg-[#FAF4EC]">
+              <button class="px-2.5 py-1.5 text-xs font-bold text-[#382017]" onclick="document.getElementById('quickViewQty').value = Math.max(1, parseInt(document.getElementById('quickViewQty').value)-1)">-</button>
+              <input type="number" id="quickViewQty" value="1" min="1" class="w-8 text-center text-xs font-bold bg-transparent focus:outline-none" readonly />
+              <button class="px-2.5 py-1.5 text-xs font-bold text-[#382017]" onclick="document.getElementById('quickViewQty').value = parseInt(document.getElementById('quickViewQty').value)+1">+</button>
+            </div>
+
+            <button 
+              id="quickViewAddBtn" 
+              class="flex-1 bg-[#382017] hover:bg-[#28140E] text-white py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition shadow-md"
+            >
+              Add to Cart
+            </button>
+          </div>
+
+          <button 
+            id="quickViewWaBtn" 
+            class="w-full bg-[#FAF4EC] hover:bg-[#F3E8DC] text-[#C83B65] py-2 rounded-xl font-semibold text-xs transition border border-[#C83B65]/30 flex items-center justify-center gap-1.5"
+          >
+            <span>Ask Baker on WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== CUSTOM CELEBRATION CAKE MODAL ======================== -->
+  <div id="customCakeModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div id="customCakeBackdrop" class="absolute inset-0 bg-[#382017]/60 backdrop-blur-sm"></div>
+
+    <div class="relative bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl z-10 border border-[#F0E4D6] max-h-[92vh] overflow-y-auto">
+      <button id="closeCustomCakeBtn" class="absolute top-4 right-4 p-2 text-[#786055] hover:text-[#382017] hover:bg-[#FAF4EC] rounded-full transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="text-center mb-5">
+        <span class="text-3xl block mb-1">🎂</span>
+        <h3 class="font-serif-display text-2xl font-bold text-[#382017]">
+          Design Your Custom Cake
+        </h3>
+        <p class="text-xs text-[#786055] mt-1">
+          Tell us about your celebration &amp; our cake designers will make it memorable!
+        </p>
+      </div>
+
+      <form id="customCakeForm" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-[#382017] mb-1">Your Full Name</label>
+          <input 
+            type="text" 
+            name="name" 
+            required 
+            placeholder="e.g. Priya Sharma" 
+            class="w-full text-xs px-3.5 py-2 rounded-xl border border-[#DFCEBD] focus:outline-none focus:border-[#C83B65]" 
+          />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#382017] mb-1">Celebration Occasion</label>
+            <select name="occasion" class="w-full text-xs px-3.5 py-2 rounded-xl border border-[#DFCEBD] focus:outline-none focus:border-[#C83B65] bg-white">
+              <option value="Birthday">Birthday</option>
+              <option value="Anniversary">Anniversary</option>
+              <option value="Wedding / Reception">Wedding / Reception</option>
+              <option value="Diwali / Festive">Diwali / Festive Gathering</option>
+              <option value="Baby Shower / Welcome">Baby Shower / Kids Party</option>
+              <option value="Other Sweet Celebration">Other Sweet Celebration</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-[#382017] mb-1">Cake Weight</label>
+            <select name="weight" class="w-full text-xs px-3.5 py-2 rounded-xl border border-[#DFCEBD] focus:outline-none focus:border-[#C83B65] bg-white">
+              <option value="500 grams (4-5 servings)">500 grams (4-5 servings)</option>
+              <option value="1 Kg (8-10 servings)" selected>1 Kg (8-10 servings)</option>
+              <option value="1.5 Kg (12-15 servings)">1.5 Kg (12-15 servings)</option>
+              <option value="2 Kg+ (Tiered Party Cake)">2 Kg+ (Tiered Party Cake)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#382017] mb-1">Signature Flavor</label>
+            <select name="flavor" class="w-full text-xs px-3.5 py-2 rounded-xl border border-[#DFCEBD] focus:outline-none focus:border-[#C83B65] bg-white">
+              <option value="Classic Tiramisu">Classic Tiramisu</option>
+              <option value="Belgian Chocolate Truffle">Belgian Chocolate Truffle</option>
+              <option value="Dubai Kunafa Cheesecake">Dubai Kunafa Cheesecake</option>
+              <option value="Fresh Strawberry Cream">Fresh Strawberry Cream</option>
+              <option value="Lotus Biscoff Delight">Lotus Biscoff Delight</option>
+              <option value="Rasmalai Fusion Cake">Rasmalai Fusion Cake</option>
+              <option value="Red Velvet Cream Cheese">Red Velvet Cream Cheese</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-[#382017] mb-1">Delivery Date</label>
+            <input 
+              type="date" 
+              name="date" 
+              class="w-full text-xs px-3.5 py-2 rounded-xl border border-[#DFCEBD] focus:outline-none focus:border-[#C83B65] bg-white" 
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#382017] mb-1">Message on Cake</label>
+          <input 
+            type="text" 
+            name="inscription" 
+            placeholder="e.g. Happy 25th Anniversary Mom & Dad ♡" 
+            class="w-full text-xs px-3.5 py-2 rounded-xl border border-[#DFCEBD] focus:outline-none focus:border-[#C83B65]" 
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#382017] mb-1">Special Design Theme or Reference Details</label>
+          <textarea 
+            name="notes" 
+            rows="2" 
+            placeholder="Colors, cartoon/floral theme, reference photo notes, delivery address in Ahmednagar..."
+            class="w-full text-xs px-3.5 py-2 rounded-xl border border-[#DFCEBD] focus:outline-none focus:border-[#C83B65]"
+          ></textarea>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="egglessCheck" name="eggless" checked class="accent-[#C83B65] w-4 h-4 rounded" />
+          <label for="egglessCheck" class="text-xs text-[#382017] font-medium">Bake as 100% Eggless 🌱</label>
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full bg-[#C83B65] hover:bg-[#B22D55] text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition duration-200"
+        >
+          <span>Send Inquiry via WhatsApp &rarr;</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
