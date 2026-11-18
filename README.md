@@ -1,8 +1,8 @@
-# 🎂 Ahmednagar Cakes
+# 🎂 Mayur The Cake Expert
 
-> Artisanal Cakes, Cookies & Handcrafted Celebration Treats — Made with Love in Ahmednagar.
+> Artisanal Cakes, Cookies & Handcrafted Celebration Treats — Made with Love by Mayur The Cake Expert.
 
-A modern, responsive, high-converting bakery landing page and online ordering web application built for **Ahmednagar Cakes**.
+A modern, responsive, high-converting bakery landing page and online ordering web application built for **Mayur The Cake Expert** (`@mayurthecakeexpert`).
 
 ---
 
@@ -22,8 +22,8 @@ A modern, responsive, high-converting bakery landing page and online ordering we
 
 1. Clone or download the repository:
    ```bash
-   git clone https://github.com/TheMarsStudio/ahmednagar-cakes.git
-   cd ahmednagar-cakes
+   git clone https://github.com/TheMarsStudio/mayurthecakeexpert.git
+   cd mayurthecakeexpert
    ```
 
 2. Open `index.html` in your browser:
@@ -47,9 +47,9 @@ A modern, responsive, high-converting bakery landing page and online ordering we
 ## 📞 Bakery Contact & Location
 
 - **Phone / WhatsApp:** [+91 82375 76793](https://wa.me/918237576793)
-- **Instagram:** [@ahmednagarcakes](https://instagram.com/ahmednagarcakes)
+- **Instagram:** [@mayurthecakeexpert](https://instagram.com/mayurthecakeexpert)
 - **Delivery Slots:** 6:30 PM – 8:30 PM
-- **Location:** Ahmednagar, Maharashtra, India
+- **Location:** Maharashtra, India
 
 ---
 
