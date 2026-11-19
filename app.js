@@ -1,11 +1,11 @@
 /**
- * Mayur The Cake Expert - Interactive Application Logic
+ * Hira's Cake Town - Interactive Application Logic
  * Pair programmed for high fidelity & smooth user experience
  */
 
 // Phone number from uploaded store assets: +91 82375 76793
 const STORE_PHONE = "918237576793";
-const STORE_NAME = "Mayur The Cake Expert";
+const STORE_NAME = "Hira's Cake Town";
 
 // Master Product Database
 const PRODUCTS = [
@@ -132,8 +132,8 @@ const PRODUCTS = [
 ];
 
 // App State
-let cart = JSON.parse(localStorage.getItem("mayur_cart") || "[]");
-let wishlist = JSON.parse(localStorage.getItem("mayur_wishlist") || "[]");
+let cart = JSON.parse(localStorage.getItem("hiras_cart") || "[]");
+let wishlist = JSON.parse(localStorage.getItem("hiras_wishlist") || "[]");
 let activeCategory = "all";
 let currentCarouselIndex = 0;
 let visibleProducts = [...PRODUCTS];
@@ -446,7 +446,7 @@ function toggleWishlist(productId, btnEl, event) {
     showToast("Added to your wishlist! ♡", "success");
   }
 
-  localStorage.setItem("mayur_wishlist", JSON.stringify(wishlist));
+  localStorage.setItem("hiras_wishlist", JSON.stringify(wishlist));
   updateWishlistCount();
 }
 
@@ -486,7 +486,7 @@ function addToCart(product, quantity = 1, weight = "", note = "") {
     });
   }
 
-  localStorage.setItem("mayur_cart", JSON.stringify(cart));
+  localStorage.setItem("hiras_cart", JSON.stringify(cart));
   updateCartBadge();
   renderCartDrawer();
   showToast(`Added ${product.name} to cart! 🍰`, "success");
@@ -596,7 +596,7 @@ function updateItemQuantity(index, change) {
     cart.splice(index, 1);
   }
 
-  localStorage.setItem("mayur_cart", JSON.stringify(cart));
+  localStorage.setItem("hiras_cart", JSON.stringify(cart));
   updateCartBadge();
   renderCartDrawer();
 }
@@ -604,7 +604,7 @@ function updateItemQuantity(index, change) {
 // Remove Single Item
 function removeCartItem(index) {
   cart.splice(index, 1);
-  localStorage.setItem("mayur_cart", JSON.stringify(cart));
+  localStorage.setItem("hiras_cart", JSON.stringify(cart));
   updateCartBadge();
   renderCartDrawer();
   showToast("Item removed from cart", "info");
@@ -617,7 +617,7 @@ function handleWhatsAppCheckout() {
   const customerName = document.getElementById("customerNameInput")?.value?.trim() || "";
   const customerAddress = document.getElementById("customerAddressInput")?.value?.trim() || "";
 
-  let message = `*✨ New Order for Mayur The Cake Expert (@mayurthecakeexpert) ✨*\n\n`;
+  let message = `*✨ New Order for Hira's Cake Town (@hirascaketown) ✨*\n\n`;
   if (customerName) message += `*Customer:* ${customerName}\n`;
   if (customerAddress) message += `*Delivery Address:* ${customerAddress}\n\n`;
 
@@ -709,7 +709,7 @@ function openQuickView(productId) {
   const waBtn = document.getElementById("quickViewWaBtn");
   if (waBtn) {
     waBtn.onclick = () => {
-      const msg = `Hi Mayur The Cake Expert! 👋 I want to order *${product.name}* (Price: ₹${product.price}). Please let me know availability!`;
+      const msg = `Hi Hira's Cake Town! 👋 I want to order *${product.name}* (Price: ₹${product.price}). Please let me know availability!`;
       window.open(`https://wa.me/${STORE_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
     };
   }
@@ -731,7 +731,7 @@ function handleCustomCakeSubmit(e) {
   const notes = form.elements["notes"]?.value?.trim() || "None";
   const customerName = form.elements["name"]?.value?.trim() || "";
 
-  let msg = `*🎂 Custom Cake Inquiry - Mayur The Cake Expert 🎂*\n\n`;
+  let msg = `*🎂 Custom Cake Inquiry - Hira's Cake Town 🎂*\n\n`;
   if (customerName) msg += `*From:* ${customerName}\n`;
   msg += `*Occasion:* ${occasion}\n`;
   msg += `*Flavor:* ${flavor}\n`;

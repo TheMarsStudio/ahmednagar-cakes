@@ -1,8 +1,8 @@
-# 🎂 Mayur The Cake Expert
+# 🎂 Hira's Cake Town
 
-> Artisanal Cakes, Cookies & Handcrafted Celebration Treats — Made with Love by Mayur The Cake Expert.
+> Artisanal Cakes, Cookies & Handcrafted Celebration Treats — Made with Love by Hira's Cake Town.
 
-A modern, responsive, high-converting bakery landing page and online ordering web application built for **Mayur The Cake Expert** (`@mayurthecakeexpert`).
+A modern, responsive, high-converting bakery landing page and online ordering web application built for **Hira's Cake Town** (`@hirascaketown`).
 
 ---
 
@@ -22,8 +22,8 @@ A modern, responsive, high-converting bakery landing page and online ordering we
 
 1. Clone or download the repository:
    ```bash
-   git clone https://github.com/TheMarsStudio/mayurthecakeexpert.git
-   cd mayurthecakeexpert
+   git clone https://github.com/TheMarsStudio/hiras-cake-town.git
+   cd hiras-cake-town
    ```
 
 2. Open `index.html` in your browser:
@@ -47,7 +47,7 @@ A modern, responsive, high-converting bakery landing page and online ordering we
 ## 📞 Bakery Contact & Location
 
 - **Phone / WhatsApp:** [+91 82375 76793](https://wa.me/918237576793)
-- **Instagram:** [@mayurthecakeexpert](https://instagram.com/mayurthecakeexpert)
+- **Instagram:** [@hirascaketown](https://instagram.com/hirascaketown)
 - **Delivery Slots:** 6:30 PM – 8:30 PM
 - **Location:** Maharashtra, India
 
